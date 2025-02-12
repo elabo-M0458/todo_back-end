@@ -1,0 +1,36 @@
+
+model Users {
+    id          String      @id @default(uuid()) @map("user_id")
+    firstName   String
+    lastName    String
+    password    String
+    EMail       String      @unique @map("e_mail")
+    createdAt   DateTime    @default(now()) @map("created_at")
+    updatedAt   DateTime    @updatedAt @map("updated_at")
+    tasks       Tasks[]
+}
+
+model Tasks {
+    id           String     @id @default(uuid()) @map("task_id")
+    taskName     String
+    isCompleted  Boolean
+    created_by   String  
+    updated_by   String
+    createdAt    DateTime   @default(now()) @map("created_at")
+    updatedAt    DateTime   @updatedAt @map("updated_at")
+    comments     Comments[]
+    author       Users?     @relation(fields: [authorId], references: [id])
+    authorId     String?
+}
+
+model Comments{
+    id           String     @id @default(uuid()) @map("comment_id")
+    commentText  String
+    isCompleted  Boolean
+    createdBy    String
+    updatedBy    String
+    createdAt    DateTime   @default(now()) @map("created_at")
+    updatedAt    DateTime   @updatedAt @map("updated_at")
+    tasks        Tasks?     @relation(fields: [taskId], references: [id])
+    taskId       String?
+}

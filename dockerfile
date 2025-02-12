@@ -20,7 +20,7 @@ RUN yarn
 COPY . .
 
 # Prisma のコード生成
-RUN npx prisma generate
+#RUN npx prisma generate
 
 # コンテナ起動時のデフォルトコマンド
 CMD ["yarn", "start"]
