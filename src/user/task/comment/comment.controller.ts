@@ -2,12 +2,12 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { CommentService } from './comment.service'
 import { CreatedCommentDto } from './dto/create-comment.dto'
 
-@Controller('users')
+@Controller('users/:userId/tasks/:taskId/comments')
 export class CommentController {
   constructor(private readonly commentService: CommentService) {}
 
   //コメント追加
-  @Post('/:userId/tasks/:taskId/comments')
+  @Post('')
   async create(
     @Param('userId') userId: string,
     @Param('taskId') taskId: string,
@@ -17,7 +17,7 @@ export class CommentController {
   }
 
   //コメント追加
-  @Delete('/:userId/tasks/:taskId/comments/:commentId')
+  @Delete(':commentId')
   async removeComment(@Param('commentId') commentId: string) {
     return this.commentService.removeComment(commentId)
   }

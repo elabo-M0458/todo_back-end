@@ -9,9 +9,9 @@ export class LoginService {
     const isLogin = await this.prisma.user.findMany({
       where: { eMail: loginUserDto.eMail, password: loginUserDto.password }
     })
-    if (isLogin) {
-      return true
+    if (isLogin.length === 0) {
+      return false
     }
-    return false
+    return true
   }
 }
