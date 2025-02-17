@@ -5,16 +5,11 @@ import { LoginUserDto } from './dto/login-user.dto'
 @Injectable()
 export class LoginService {
   constructor(private prisma: PrismaService) {}
-  async isLogin(loginUserDto: LoginUserDto) {
-    const isEMail = await this.prisma.user.findUnique({
-      where: { eMail: loginUserDto.eMail }
+  async checkLogin(loginUserDto: LoginUserDto) {
+    const isLogin = await this.prisma.user.findMany({
+      where: { eMail: loginUserDto.eMail, password: loginUserDto.password }
     })
-
-    const isPassword = await this.prisma.user.findFirst({
-      where: { password: loginUserDto.password }
-    })
-
-    if (isEMail && isPassword) {
+    if (isLogin) {
       return true
     }
     return false

@@ -7,7 +7,7 @@ export class LoginController {
   constructor(private readonly loginService: LoginService) {}
 
   @Post()
-  async loginCheck(@Body() LoginUserDto: LoginUserDto) {
-    return this.loginService.isLogin(LoginUserDto)
+  async checkLogin(@Body() LoginUserDto: LoginUserDto) {
+    return this.loginService.checkLogin(LoginUserDto)
   }
 }

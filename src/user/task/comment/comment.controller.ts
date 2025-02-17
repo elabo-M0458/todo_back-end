@@ -8,12 +8,12 @@ export class CommentController {
 
   //コメント追加
   @Post('/:userId/tasks/:taskId/comments')
-  async createComent(
+  async create(
     @Param('userId') userId: string,
     @Param('taskId') taskId: string,
     @Body() createdComemntDto: CreatedCommentDto
   ) {
-    return this.commentService.createComment(userId, taskId, createdComemntDto)
+    return this.commentService.create(userId, taskId, createdComemntDto)
   }
 
   //コメント追加

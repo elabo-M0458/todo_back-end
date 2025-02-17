@@ -34,7 +34,7 @@ export class TaskService {
     })
     return updatedTask
   }
-  async removeTask(userId: string, taskId: string) {
+  async removeTask(taskId: string) {
     await this.prisma.task.delete({
       where: { id: taskId }
     })

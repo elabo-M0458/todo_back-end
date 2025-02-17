@@ -3,24 +3,24 @@ import { TaskService } from './task.service'
 import { CreateTaskDto } from './dto/create-task.dto'
 import { UpdateTaskDto } from './dto/update-task-dto'
 
-@Controller('users')
+@Controller('users/:userId')
 export class TaskController {
   constructor(private readonly taskService: TaskService) {}
 
   //タスク登録
-  @Post('/:userId/tasks')
-  async createTask(@Body() createTaskDto: CreateTaskDto, @Param('userId') id: string) {
-    return this.taskService.createTask(createTaskDto, id)
+  @Post('tasks')
+  async createTask(@Body() createTaskDto: CreateTaskDto, @Param('userId') userId: string) {
+    return this.taskService.createTask(createTaskDto, userId)
   }
 
   //タスク取得
-  @Get('/:userId/tasks')
+  @Get('tasks')
   async findTasks(@Param('userId') userId: string) {
     return this.taskService.findTasks(userId)
   }
 
   //タスク編集
-  @Patch('/:userId/tasks/:taskId')
+  @Patch('tasks/:taskId')
   async updateTask(
     @Param('userId') userId: string,
     @Param('taskId') taskId: string,
@@ -30,8 +30,8 @@ export class TaskController {
   }
 
   //タスク削除
-  @Delete('/:userId/tasks/:taskId')
-  async removeTask(@Param('userId') userId: string, @Param('taskId') taskId: string) {
-    return this.taskService.removeTask(userId, taskId)
+  @Delete('tasks/:taskId')
+  async removeTask(@Param('taskId') taskId: string) {
+    return this.taskService.removeTask(taskId)
   }
 }

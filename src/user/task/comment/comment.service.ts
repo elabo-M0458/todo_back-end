@@ -5,7 +5,7 @@ import { CreatedCommentDto } from './dto/create-comment.dto'
 @Injectable()
 export class CommentService {
   constructor(private prisma: PrismaService) {}
-  async createComment(userId: string, taskId: string, createdCommentDto: CreatedCommentDto) {
+  async create(userId: string, taskId: string, createdCommentDto: CreatedCommentDto) {
     const createComment = await this.prisma.comment.create({
       data: {
         commentText: createdCommentDto.commentText,
