@@ -1,9 +1,6 @@
 # ベースイメージとして公式のNode.jsを使用
 FROM node:20
 
-#Yarnをインストール
-RUN corepack enable && corepack prepare yarn@stable --activate
-
 # 作業ディレクトリを作成
 WORKDIR /app
 
