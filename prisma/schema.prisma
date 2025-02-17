@@ -1,5 +1,13 @@
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://user:password@db:5432/mydatabase?schema=public&connect_timeout=300"
+}
 
-model Users {
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
     id          String      @id @default(uuid()) @map("user_id")
     firstName   String
     lastName    String
@@ -7,30 +15,30 @@ model Users {
     eMail       String      @unique @map("e_mail")
     createdAt   DateTime    @default(now()) @map("created_at")
     updatedAt   DateTime    @updatedAt @map("updated_at")
-    tasks       Tasks[]
+    tasks       Task[]
 }
 
-model Tasks {
+model Task {
     id           String     @id @default(uuid()) @map("task_id")
     taskName     String
-    isCompleted  Boolean
+    isCompleted  Boolean    @default(false)
     createdBy    String     @map("created_by")
     updatedBy    String     @map("updated_by")
     createdAt    DateTime   @default(now()) @map("created_at")
     updatedAt    DateTime   @updatedAt @map("updated_at")
-    comments     Comments[]
-    user         Users?     @relation(fields: [userId], references: [id])
+    comments     Comment[]
+    user         User?     @relation(fields: [userId], references: [id])
     userId       String?
 }
 
-model Comments{
+model Comment{
     id           String     @id @default(uuid()) @map("comment_id")
     commentText  String
-    isCompleted  Boolean
+    isCompleted  Boolean    @default(false)
     createdBy    String     @map("created_by")
     updatedBy    String     @map("updated_by")
     createdAt    DateTime   @default(now()) @map("created_at")
     updatedAt    DateTime   @updatedAt @map("updated_at")
-    tasks        Tasks?     @relation(fields: [taskId], references: [id])
+    tasks        Task?     @relation(fields: [taskId], references: [id])
     taskId       String?
 }
